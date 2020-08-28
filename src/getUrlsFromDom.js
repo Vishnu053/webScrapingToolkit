@@ -41,7 +41,7 @@ function onPromptErr(err) {
 function startScrape() {
   console.log("Launching chrome instance");
   puppeteer
-    .launch()
+    .launch({ headless: true })
     .then(function (browser) {
       return browser.newPage();
     })
@@ -57,7 +57,7 @@ function startScrape() {
         if (atag) {
           if (atag.includes("http")) {
             // outputArray.push("[" + atag + "] " + $(this).text())
-            // console.log("[" + atag + "] " + $(this).text());
+            console.log("[" + atag + "] " + $(this).text());
             writeToFile("[" + atag + "] " + $(this).text());
           }
         }
@@ -71,15 +71,8 @@ function startScrape() {
 }
 function writeToFile(w) {
   var fs = require("fs");
-  // fs.writeFile("./outputs/"+outputFile, w, function(err) {
-  //     if(err) {
-  //         return console.log(err);
-  //     }
-
-  //     console.log("Added " + w);
-  // });
   fs.appendFileSync(
-    "./outputs/" + outputFile,
+    "./outputs/" + outputFile + "\n",
     w,
     "UTF-8",
     { flags: "a" },
