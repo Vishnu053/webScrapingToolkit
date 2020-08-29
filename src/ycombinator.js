@@ -9,7 +9,7 @@ const success = chalk.keyword("green");
 (async () => {
   try {
     // open the headless browser
-    var browser = await puppeteer.launch({ headless: false });
+    var browser = await puppeteer.launch({ headless: true });
     // open a new page
     var page = await browser.newPage();
     // enter url in page
@@ -34,7 +34,7 @@ const success = chalk.keyword("green");
     // console.log(news);
     await browser.close();
     // Writing the news inside a json file
-    fs.writeFile("hackernews.json", JSON.stringify(news), function(err) {
+    fs.writeFile("outputs/hackernews.json", JSON.stringify(news), function(err) {
       if (err) throw err;
       console.log("Saved!");
     });
