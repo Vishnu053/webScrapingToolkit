@@ -51,17 +51,20 @@ function startScrape() {
       });
     })
     .then(function (html) {
+        let u=[]
       $("a", html).each(function () {
         // let outputArray=[]
         let atag = $(this).attr().href;
         if (atag) {
           if (atag.includes("http")) {
             // outputArray.push("[" + atag + "] " + $(this).text())
-            console.log("[" + atag + "] " + $(this).text());
-            writeToFile("[" + atag + "] " + $(this).text());
+            console.log("[" + atag + "] " + $(this).text() + ',' );
+            u.push({'link':atag,'title':$(this).text()})
+//             writeToFile("[" + atag + "] " + $(this).text() + ',' );
           }
         }
       });
+      writeToFile(JSON.stringify(u) );
       return
     })
     .catch(function (err) {
@@ -72,7 +75,7 @@ function startScrape() {
 function writeToFile(w) {
   var fs = require("fs");
   fs.appendFileSync(
-    "./outputs/" + outputFile + "\n",
+    "./outputs/" + outputFile,
     w,
     "UTF-8",
     { flags: "a" },
